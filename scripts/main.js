@@ -127,8 +127,10 @@ shuffle(deck)
 console.log(deck)
 
 dealBtn.addEventListener('click', () => {
-    // newCard = deck.pop()
-    // newCard.getImage()
+    dealCard(playerCards, playerHand)
+    dealCard(dealerCards, dealerHand)
+    dealCard(playerCards, playerHand)
+    dealCard(dealerCards, dealerHand)
 })
 
 hitBtn.addEventListener('click', () => {
