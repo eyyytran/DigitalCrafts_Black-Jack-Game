@@ -6,8 +6,11 @@ const dealBtn = document.getElementById('deal-button')
 const hitBtn = document.getElementById('hit-button')
 const standBtn = document.getElementById('stand-button')
 
+let gameStatus = 'init'
 const playerCards = []
 const dealerCards = []
+let playerHandValue = 0
+let dealerHandValue = 0
 let deck = []
 
 class Card {
@@ -122,6 +125,8 @@ const getPoints = (hand) => {
     return points
 }
 
+const checkPoints = (points) => {}
+
 makeDeck()
 shuffle(deck)
 console.log(deck)
@@ -148,3 +153,5 @@ hitBtn.addEventListener('click', () => {
 
 // window.addEventListener('DOMContentLoaded', function () {})
 //     // Execute after page load
+
+// changes
