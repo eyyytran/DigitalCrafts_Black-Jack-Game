@@ -144,14 +144,19 @@ const findAce = (hand) => {
     }
 }
 
-const checkPlayerPoints = (points, hand) => {
-    if (points = 21) {
+const checkPlayerPoints = (points) => {
+    if ((points = 21)) {
         gameStatus = 'Player Wins'
     } else if (points > 21) {
-        if (findAce(hand) = true) {
+        gameStatus = 'Player Busts'
+    }
+}
 
-        }
-        }
+const checkResult = (gameStatus) => {
+    if (gameStatus === 'Player Wins') {
+        console.log(gameStatus)
+    } else if (gameStatus === 'Player Busts') {
+        console.log('Player Busts')
     }
 }
 
@@ -179,7 +184,11 @@ hitBtn.addEventListener('click', () => {
     dealCard(playerCards, playerHand)
     let playerHandValue = getPoints(playerCards)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
-    checkPlayerPoints(playerHandValue, playerCards)
+})
+
+standBtn.addEventListener('click', () => {
+    checkPlayerPoints(playerHandValue)
+    checkResult(gameStatus)
 })
 // makeDeck()
 // shuffle(deck)
