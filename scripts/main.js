@@ -6,17 +6,17 @@ const dealBtn = document.getElementById('deal-button')
 const hitBtn = document.getElementById('hit-button')
 const standBtn = document.getElementById('stand-button')
 const message = document.getElementById('messages')
+const resultMessage = document.getElementsByClassName('message-text')[0]
 const xBtn = document.getElementsByClassName('close')[0]
 const printPlayerPoints = document.createElement('div')
 const printDealerPoints = document.createElement('div')
 
 let gameStatus = 'init'
-const playerCards = []
-const dealerCards = []
+let playerCards = []
+let dealerCards = []
 let playerHandValue = 0
 let dealerHandValue = 0
 let deck = []
-let gameCondition = ''
 
 class Card {
     constructor(name) {
@@ -179,22 +179,27 @@ const checkResult = gameStatus => {
             console.log('Continue')
             break
         case 'Player Win':
+            resultMessage.innerHTML = 'Player Won!'
             showModal()
             console.log('Player Won!')
             break
         case 'Dealer Win':
+            resultMessage.innerHTML = 'Dealer Won!'
             showModal()
             console.log('Dealer Won :(')
             break
         case 'Player Busted':
+            resultMessage.innerHTML = 'Player Busted!'
             showModal()
             console.log('Player Bust')
             break
         case 'Dealer Busted':
+            resultMessage.innerHTML = 'Dealer Busted!'
             showModal()
             console.log('Dealer Bust')
             break
         case 'Tie':
+            resultMessage.innerHTML = "It's a tie!"
             showModal()
             console.log("It's a tie!")
             break
@@ -207,6 +212,25 @@ const compareHands = (playerHandValue, dealerHandValue) => {
     } else if (playerHandValue < dealerHandValue) {
         return (gameStatus = 'Dealer Win')
     } else return (gameStatus = 'Tie')
+}
+
+const showModal = () => {
+    message.style = 'display: block;'
+}
+
+const resetGame = () => {
+    deck = makeDeck()
+    shuffle(deck)
+    gameStatus = 'init'
+    playerCards = []
+    dealerCards = []
+    playerHandValue = 0
+    dealerHandValue = 0
+
+    playerPoints.innerHTML = null
+    dealerPoints.innerHTML = null
+    playerHand.innerHTML = null
+    dealerHand.innerHTML = null
 }
 
 dealBtn.addEventListener('click', () => {
@@ -249,11 +273,8 @@ standBtn.addEventListener('click', () => {
 
 xBtn.addEventListener('click', () => {
     message.style.display = 'none'
+    resetGame()
 })
-
-const showModal = () => {
-    message.style = 'display: block;'
-}
 
 // const setPlayerPoints = points => (playerPoints.innerHTML = points)
 // const setDealerPoints = points => (playerPoints.innerHTML = points)
