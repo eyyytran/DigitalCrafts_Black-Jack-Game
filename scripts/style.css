@@ -10,12 +10,37 @@ body {
 }
 
 .message-box {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
     width: 900px;
     max-width: calc(100% - 20px);
     margin: 0 auto 10px;
-    height: 1em;
+    height: 100%;
+    overflow: auto;
     font-size: 18px;
     color: rgb(22, 77, 8);
+    border: 5px solid red;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.message-content {
+    background: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .message-box.error {

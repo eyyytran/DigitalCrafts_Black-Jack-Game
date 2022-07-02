@@ -5,6 +5,8 @@ const playerPoints = document.getElementById('player-points')
 const dealBtn = document.getElementById('deal-button')
 const hitBtn = document.getElementById('hit-button')
 const standBtn = document.getElementById('stand-button')
+const message = document.getElementById('messages')
+const xBtn = document.getElementsByClassName('close')[0]
 const printPlayerPoints = document.createElement('div')
 const printDealerPoints = document.createElement('div')
 
@@ -177,18 +179,23 @@ const checkResult = gameStatus => {
             console.log('Continue')
             break
         case 'Player Win':
+            showModal()
             console.log('Player Won!')
             break
         case 'Dealer Win':
+            showModal()
             console.log('Dealer Won :(')
             break
         case 'Player Busted':
+            showModal()
             console.log('Player Bust')
             break
         case 'Dealer Busted':
+            showModal()
             console.log('Dealer Bust')
             break
         case 'Tie':
+            showModal()
             console.log("It's a tie!")
             break
     }
@@ -239,6 +246,14 @@ standBtn.addEventListener('click', () => {
         checkResult(gameStatus)
     }
 })
+
+xBtn.addEventListener('click', () => {
+    message.style.display = 'none'
+})
+
+const showModal = () => {
+    message.style = 'display: block;'
+}
 
 // const setPlayerPoints = points => (playerPoints.innerHTML = points)
 // const setDealerPoints = points => (playerPoints.innerHTML = points)
