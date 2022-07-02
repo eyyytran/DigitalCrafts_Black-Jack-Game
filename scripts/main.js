@@ -240,12 +240,6 @@ standBtn.addEventListener('click', () => {
     }
 })
 
-// testing changing ace value
-// const testHand = [new Card('10H'), new Card('AD'), new Card('AS')]
-
-// const testValue = getPoints(testHand)
-// checkPoints(testValue, testHand)
-
 // const setPlayerPoints = points => (playerPoints.innerHTML = points)
 // const setDealerPoints = points => (playerPoints.innerHTML = points)
 
