@@ -45,10 +45,6 @@ class Card {
         this.value = newValue
     }
 
-    print = () => {
-        console.log(this.name)
-    }
-
     getImage = () => {
         let rank
         if (!isNaN(this.name[0])) {
@@ -134,36 +130,6 @@ const getPoints = hand => {
     return points
 }
 
-const renderPoints = (handvalue, whichplayer, whosepoints) => {
-    whosepoints.innerHTML = handvalue.toString()
-    whichplayer.appendChild(whosepoints)
-}
-
-dealBtn.addEventListener('click', () => {
-    dealCard(playerCards, playerHand)
-    dealCard(dealerCards, dealerHand)
-    dealCard(playerCards, playerHand)
-    dealCard(dealerCards, dealerHand)
-    let playerHandValue = getPoints(playerCards)
-    let dealerHandValue = getPoints(dealerCards)
-    console.log('before', playerHandValue)
-    checkPoints(playerHandValue, playerCards)
-    console.log('after', playerHandValue)
-    renderPoints(playerHandValue, playerPoints, printPlayerPoints)
-    renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
-})
-
-hitBtn.addEventListener('click', () => {
-    dealCard(playerCards, playerHand)
-    let playerHandValue = getPoints(playerCards)
-    console.log('before', playerHandValue)
-    checkPoints(playerHandValue, playerCards)
-    console.log('after', playerHandValue)
-    renderPoints(playerHandValue, playerPoints, printPlayerPoints)
-})
-
-standBtn.addEventListener('click', () => {})
-
 const checkPoints = (value, hand) => {
     let newValue = 0
     if (value < 21) {
@@ -176,8 +142,6 @@ const checkPoints = (value, hand) => {
             reduceAceValue(foundAce)
             newValue = getPoints(hand)
             checkPoints(newValue, hand)
-            value = newValue
-            return value
         } else return (gameStatus = 'Player Busted')
     }
 }
@@ -186,6 +150,34 @@ const findAceWorthEleven = hand =>
     hand.find(card => card.name[0] === 'A' && card.value === 11)
 
 const reduceAceValue = ace => ace.setValue(1)
+
+const renderPoints = (handvalue, whichplayer, whosepoints) => {
+    whosepoints.innerHTML = handvalue.toString()
+    whichplayer.appendChild(whosepoints)
+}
+
+dealBtn.addEventListener('click', () => {
+    dealCard(playerCards, playerHand)
+    dealCard(dealerCards, dealerHand)
+    dealCard(playerCards, playerHand)
+    dealCard(dealerCards, dealerHand)
+    playerHandValue = getPoints(playerCards)
+    dealerHandValue = getPoints(dealerCards)
+    checkPoints(playerHandValue, playerCards)
+    playerHandValue = getPoints(playerCards)
+    renderPoints(playerHandValue, playerPoints, printPlayerPoints)
+    renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
+})
+
+hitBtn.addEventListener('click', () => {
+    dealCard(playerCards, playerHand)
+    playerHandValue = getPoints(playerCards)
+    checkPoints(playerHandValue, playerCards)
+    playerHandValue = getPoints(playerCards)
+    renderPoints(playerHandValue, playerPoints, printPlayerPoints)
+})
+
+standBtn.addEventListener('click', () => {})
 
 // testing changing ace value
 // const testHand = [new Card('10H'), new Card('AD'), new Card('AS')]
