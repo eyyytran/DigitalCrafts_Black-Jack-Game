@@ -130,6 +130,11 @@ const getPoints = hand => {
     return points
 }
 
+const findAceWorthEleven = hand =>
+    hand.find(card => card.name[0] === 'A' && card.value === 11)
+
+const reduceAceValue = ace => ace.setValue(1)
+
 const checkPoints = (value, hand) => {
     let newValue = 0
     if (value < 21) {
@@ -146,14 +151,25 @@ const checkPoints = (value, hand) => {
     }
 }
 
-const findAceWorthEleven = hand =>
-    hand.find(card => card.name[0] === 'A' && card.value === 11)
-
-const reduceAceValue = ace => ace.setValue(1)
-
 const renderPoints = (handvalue, whichplayer, whosepoints) => {
     whosepoints.innerHTML = handvalue.toString()
     whichplayer.appendChild(whosepoints)
+}
+
+const checkResult = gameStatus => {
+    switch (gameStatus) {
+        case 'init':
+            break
+        case 'cont':
+            console.log('Continue')
+            break
+        case 'Player Win':
+            console.log('Player Won!')
+            break
+        case 'Player Busted':
+            console.log('Player Bust')
+            break
+    }
 }
 
 dealBtn.addEventListener('click', () => {
@@ -167,6 +183,7 @@ dealBtn.addEventListener('click', () => {
     playerHandValue = getPoints(playerCards)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
+    checkResult(gameStatus)
 })
 
 hitBtn.addEventListener('click', () => {
@@ -175,6 +192,7 @@ hitBtn.addEventListener('click', () => {
     checkPoints(playerHandValue, playerCards)
     playerHandValue = getPoints(playerCards)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
+    checkResult(gameStatus)
 })
 
 standBtn.addEventListener('click', () => {})
