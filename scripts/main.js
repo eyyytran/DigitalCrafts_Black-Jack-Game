@@ -140,14 +140,27 @@ const checkPoints = (value, hand) => {
     if (value < 21) {
         return (gameStatus = 'cont')
     } else if (value === 21) {
-        return (gameStatus = 'Player Win')
+        if (hand === playerCards) {
+            return (gameStatus = 'Player Win')
+        } else return (gameStatus = 'Dealer Win')
     } else if (value > 21) {
         const foundAce = findAceWorthEleven(hand)
         if (foundAce) {
             reduceAceValue(foundAce)
             newValue = getPoints(hand)
             checkPoints(newValue, hand)
-        } else return (gameStatus = 'Player Busted')
+        } else {
+            if (hand === playerCards) {
+                return (gameStatus = 'Player Busted')
+            } else return (gameStatus = 'Dealer Busted')
+        }
+    }
+}
+
+const checkDealerUnder16 = () => {
+    while (dealerHandValue < 16) {
+        dealCard(dealerCards, dealerHand)
+        dealerHandValue = getPoints(dealerCards)
     }
 }
 
@@ -166,10 +179,27 @@ const checkResult = gameStatus => {
         case 'Player Win':
             console.log('Player Won!')
             break
+        case 'Dealer Win':
+            console.log('Dealer Won :(')
+            break
         case 'Player Busted':
             console.log('Player Bust')
             break
+        case 'Dealer Busted':
+            console.log('Dealer Bust')
+            break
+        case 'Tie':
+            console.log("It's a tie!")
+            break
     }
+}
+
+const compareHands = (playerHandValue, dealerHandValue) => {
+    if (playerHandValue > dealerHandValue) {
+        return (gameStatus = 'Player Win')
+    } else if (playerHandValue < dealerHandValue) {
+        return (gameStatus = 'Dealer Win')
+    } else return (gameStatus = 'Tie')
 }
 
 dealBtn.addEventListener('click', () => {
@@ -195,7 +225,20 @@ hitBtn.addEventListener('click', () => {
     checkResult(gameStatus)
 })
 
-standBtn.addEventListener('click', () => {})
+standBtn.addEventListener('click', () => {
+    checkDealerUnder16()
+    dealerHandValue = getPoints(dealerCards)
+    checkPoints(dealerHandValue, dealerCards)
+    checkDealerUnder16()
+    checkPoints(dealerHandValue, dealerCards)
+    dealerHandValue = getPoints(dealerCards)
+    renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
+    checkResult(gameStatus)
+    if (gameStatus === 'cont') {
+        compareHands(playerHandValue, dealerHandValue)
+        checkResult(gameStatus)
+    }
+})
 
 // testing changing ace value
 // const testHand = [new Card('10H'), new Card('AD'), new Card('AS')]
