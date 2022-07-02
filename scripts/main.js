@@ -231,6 +231,10 @@ const resetGame = () => {
     dealerPoints.innerHTML = null
     playerHand.innerHTML = null
     dealerHand.innerHTML = null
+
+    dealBtn.disabled = false
+    hitBtn.disabled = false
+    standBtn.disabled = false
 }
 
 dealBtn.addEventListener('click', () => {
@@ -245,6 +249,7 @@ dealBtn.addEventListener('click', () => {
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
     checkResult(gameStatus)
+    dealBtn.disabled = true
 })
 
 hitBtn.addEventListener('click', () => {
@@ -257,6 +262,7 @@ hitBtn.addEventListener('click', () => {
 })
 
 standBtn.addEventListener('click', () => {
+    hitBtn.disabled = true
     checkDealerUnder16()
     dealerHandValue = getPoints(dealerCards)
     checkPoints(dealerHandValue, dealerCards)
@@ -269,6 +275,7 @@ standBtn.addEventListener('click', () => {
         compareHands(playerHandValue, dealerHandValue)
         checkResult(gameStatus)
     }
+    standBtn.disable = true
 })
 
 xBtn.addEventListener('click', () => {
