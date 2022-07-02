@@ -144,20 +144,22 @@ dealBtn.addEventListener('click', () => {
     dealCard(dealerCards, dealerHand)
     dealCard(playerCards, playerHand)
     dealCard(dealerCards, dealerHand)
-    console.log({ playerCards, dealerCards })
     let playerHandValue = getPoints(playerCards)
     let dealerHandValue = getPoints(dealerCards)
+    console.log('before', playerHandValue)
+    checkPoints(playerHandValue, playerCards)
+    console.log('after', playerHandValue)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
-    console.log(checkPoints(playerHandValue, playerCards))
 })
 
 hitBtn.addEventListener('click', () => {
     dealCard(playerCards, playerHand)
     let playerHandValue = getPoints(playerCards)
+    console.log('before', playerHandValue)
+    checkPoints(playerHandValue, playerCards)
+    console.log('after', playerHandValue)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
-    setPlayerPoints(getPoints(playerCards))
-    console.log(checkPoints(playerHandValue, playerCards))
 })
 
 standBtn.addEventListener('click', () => {})
@@ -174,6 +176,8 @@ const checkPoints = (value, hand) => {
             reduceAceValue(foundAce)
             newValue = getPoints(hand)
             checkPoints(newValue, hand)
+            value = newValue
+            return value
         } else return (gameStatus = 'Player Busted')
     }
 }
@@ -189,8 +193,8 @@ const reduceAceValue = ace => ace.setValue(1)
 // const testValue = getPoints(testHand)
 // checkPoints(testValue, testHand)
 
-const setPlayerPoints = points => (playerPoints.innerHTML = points)
-const setDealerPoints = points => (playerPoints.innerHTML = points)
+// const setPlayerPoints = points => (playerPoints.innerHTML = points)
+// const setDealerPoints = points => (playerPoints.innerHTML = points)
 
 deck = makeDeck()
 shuffle(deck)
