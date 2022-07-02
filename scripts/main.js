@@ -41,7 +41,7 @@ class Card {
         return value
     }
 
-    setValue = (newValue) => {
+    setValue = newValue => {
         this.value = newValue
     }
 
@@ -109,7 +109,7 @@ const makeDeck = () => {
     return deck
 }
 
-const shuffle = (deck) => {
+const shuffle = deck => {
     deck.sort(() => Math.random() - 0.5)
     deck.sort(() => Math.random() - 0.5)
     deck.sort(() => Math.random() - 0.5)
@@ -123,46 +123,16 @@ const dealCard = (hand, windowHand) => {
     const makeCard = document.createElement('img')
     makeCard.src = currentCard.getImage()
     windowHand.appendChild(makeCard)
-    return deck
 }
 
-const getPoints = (hand) => {
+const getPoints = hand => {
+    console.log(hand)
     let points = 0
     for (let card = 0; card < hand.length; card++) {
         points = points + hand[card].value
     }
     return points
 }
-
-const findAce = (hand) => {
-    for (let card = 0; card < hand.length; card++) {
-        if (hand[card].name[0] === 'A') {
-            console.log('found ace')
-            hand[card].setValue(1)
-            return true
-        }
-    }
-}
-
-const checkPlayerPoints = (points) => {
-    if ((points = 21)) {
-        gameStatus = 'Player Wins'
-    } else if (points > 21) {
-        gameStatus = 'Player Busts'
-    }
-}
-
-const checkResult = (gameStatus) => {
-    if (gameStatus === 'Player Wins') {
-        console.log(gameStatus)
-    } else if (gameStatus === 'Player Busts') {
-        console.log('Player Busts')
-    }
-}
-
-makeDeck()
-shuffle(deck)
-console.log(deck)
 
 const renderPoints = (handvalue, whichplayer, whosepoints) => {
     whosepoints.innerHTML = handvalue.toString()
@@ -174,33 +144,53 @@ dealBtn.addEventListener('click', () => {
     dealCard(dealerCards, dealerHand)
     dealCard(playerCards, playerHand)
     dealCard(dealerCards, dealerHand)
+    console.log({ playerCards, dealerCards })
     let playerHandValue = getPoints(playerCards)
     let dealerHandValue = getPoints(dealerCards)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
+    console.log(checkPoints(playerHandValue, playerCards))
 })
 
 hitBtn.addEventListener('click', () => {
     dealCard(playerCards, playerHand)
     let playerHandValue = getPoints(playerCards)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
+    setPlayerPoints(getPoints(playerCards))
+    console.log(checkPoints(playerHandValue, playerCards))
 })
 
-standBtn.addEventListener('click', () => {
-    checkPlayerPoints(playerHandValue)
-    checkResult(gameStatus)
-})
-// makeDeck()
-// shuffle(deck)
-// dealCard(playerCards)
-// dealCard(playerCards)
-// dealCard(playerCards)
-// const playerHandValue = getPoints(playerCards)
-// console.log(playerHandValue)
-// console.log(playerCards)
-// console.log(deck)
+standBtn.addEventListener('click', () => {})
 
-// window.addEventListener('DOMContentLoaded', function () {})
-//     // Execute after page load
+const checkPoints = (value, hand) => {
+    let newValue = 0
+    if (value < 21) {
+        return (gameStatus = 'cont')
+    } else if (value === 21) {
+        return (gameStatus = 'Player Win')
+    } else if (value > 21) {
+        const foundAce = findAceWorthEleven(hand)
+        if (foundAce) {
+            reduceAceValue(foundAce)
+            newValue = getPoints(hand)
+            checkPoints(newValue, hand)
+        } else return (gameStatus = 'Player Busted')
+    }
+}
 
-// changes
+const findAceWorthEleven = hand =>
+    hand.find(card => card.name[0] === 'A' && card.value === 11)
+
+const reduceAceValue = ace => ace.setValue(1)
+
+// testing changing ace value
+// const testHand = [new Card('10H'), new Card('AD'), new Card('AS')]
+
+// const testValue = getPoints(testHand)
+// checkPoints(testValue, testHand)
+
+const setPlayerPoints = points => (playerPoints.innerHTML = points)
+const setDealerPoints = points => (playerPoints.innerHTML = points)
+
+deck = makeDeck()
+shuffle(deck)
