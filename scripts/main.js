@@ -119,9 +119,16 @@ const dealCard = (hand, windowHand) => {
     hand.push(currentCard)
 
     const makeCard = document.createElement('img')
-    makeCard.src = currentCard.getImage()
+    if (dealerCards.length === 2) {
+        //make the hidden card//
+        makeCard.src = './images/back_of_card.png'
+    } else {
+        makeCard.src = currentCard.getImage()
+    }
     windowHand.appendChild(makeCard)
 }
+
+const makeHiddenCard = () => {}
 
 const getPoints = hand => {
     console.log(hand)
@@ -181,32 +188,26 @@ const checkResult = gameStatus => {
         case 'init':
             break
         case 'cont':
-            console.log('Continue')
             break
         case 'Player Win':
             resultMessage.innerHTML = 'Player Won!'
             showModal()
-            console.log('Player Won!')
             break
         case 'Dealer Win':
             resultMessage.innerHTML = 'Dealer Won!'
             showModal()
-            console.log('Dealer Won :(')
             break
         case 'Player Busted':
             resultMessage.innerHTML = 'Player Busted!'
             showModal()
-            console.log('Player Bust')
             break
         case 'Dealer Busted':
             resultMessage.innerHTML = 'Dealer Busted!'
             showModal()
-            console.log('Dealer Bust')
             break
         case 'Tie':
             resultMessage.innerHTML = "It's a tie!"
             showModal()
-            console.log("It's a tie!")
             break
     }
 }
@@ -273,12 +274,6 @@ hitBtn.addEventListener('click', () => {
 standBtn.addEventListener('click', () => {
     hitBtn.disabled = true
     checkDealerUnder16()
-    console.log(dealerHandValue)
-    // dealerHandValue = getPoints(dealerCards)
-    // checkPoints(dealerHandValue, dealerCards)
-    // checkDealerUnder16()
-    // checkPoints(dealerHandValue, dealerCards)
-    // dealerHandValue = getPoints(dealerCards)
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
     checkResult(gameStatus)
     if (gameStatus === 'cont') {
