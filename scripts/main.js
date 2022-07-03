@@ -160,10 +160,15 @@ const checkPoints = (value, hand) => {
 }
 
 const checkDealerUnder16 = () => {
-    while (dealerHandValue < 16) {
+    while (dealerHandValue <= 16) {
         dealCard(dealerCards, dealerHand)
         dealerHandValue = getPoints(dealerCards)
     }
+    checkPoints(dealerHandValue, dealerCards)
+    if ((dealerHandValue = getPoints(dealerCards)) <= 16) {
+        checkDealerUnder16()
+    }
+    return dealerHandValue
 }
 
 const renderPoints = (handvalue, whichplayer, whosepoints) => {
@@ -268,11 +273,12 @@ hitBtn.addEventListener('click', () => {
 standBtn.addEventListener('click', () => {
     hitBtn.disabled = true
     checkDealerUnder16()
-    dealerHandValue = getPoints(dealerCards)
-    checkPoints(dealerHandValue, dealerCards)
-    checkDealerUnder16()
-    checkPoints(dealerHandValue, dealerCards)
-    dealerHandValue = getPoints(dealerCards)
+    console.log(dealerHandValue)
+    // dealerHandValue = getPoints(dealerCards)
+    // checkPoints(dealerHandValue, dealerCards)
+    // checkDealerUnder16()
+    // checkPoints(dealerHandValue, dealerCards)
+    // dealerHandValue = getPoints(dealerCards)
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
     checkResult(gameStatus)
     if (gameStatus === 'cont') {
@@ -288,7 +294,3 @@ xBtn.addEventListener('click', () => {
 })
 
 startGame()
-// const setPlayerPoints = points => (playerPoints.innerHTML = points)
-// const setDealerPoints = points => (playerPoints.innerHTML = points)
-// deck = makeDeck()
-// shuffle(deck)
