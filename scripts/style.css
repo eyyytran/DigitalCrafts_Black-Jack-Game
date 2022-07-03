@@ -9,6 +9,15 @@ body {
     box-sizing: border-box;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
 .message-box {
     display: none;
     position: fixed;
@@ -97,6 +106,16 @@ button {
     border-radius: 10px;
     color: rgb(189, 229, 255);
     background: rgb(0, 98, 163);
+}
+
+#reset-button,
+#hit-button,
+#stand-button {
+    display: none;
+}
+
+#deal-button {
+    display: initial;
 }
 
 button:hover {

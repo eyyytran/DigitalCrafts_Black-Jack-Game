@@ -5,6 +5,7 @@ const playerPoints = document.getElementById('player-points')
 const dealBtn = document.getElementById('deal-button')
 const hitBtn = document.getElementById('hit-button')
 const standBtn = document.getElementById('stand-button')
+const resetBtn = document.getElementById('reset-button')
 const message = document.getElementById('messages')
 const resultMessage = document.getElementsByClassName('message-text')[0]
 const xBtn = document.getElementsByClassName('close')[0]
@@ -197,16 +198,16 @@ const checkResult = gameStatus => {
             break
         case 'Player Win':
             revealHiddenCard()
-            resultMessage.innerHTML = 'Player Won!'
+            resultMessage.innerHTML = 'Ya Won!'
             showModal()
             break
         case 'Dealer Win':
-            resultMessage.innerHTML = 'Dealer Won!'
+            resultMessage.innerHTML = 'Dealer Won (-_-)'
             showModal()
             break
         case 'Player Busted':
             revealHiddenCard()
-            resultMessage.innerHTML = 'Player Busted!'
+            resultMessage.innerHTML = 'Ya Busted!'
             showModal()
             break
         case 'Dealer Busted':
@@ -214,7 +215,7 @@ const checkResult = gameStatus => {
             showModal()
             break
         case 'Tie':
-            resultMessage.innerHTML = "It's a tie!"
+            resultMessage.innerHTML = 'Issa tie!'
             showModal()
             break
     }
@@ -228,8 +229,21 @@ const compareHands = (playerHandValue, dealerHandValue) => {
     } else return (gameStatus = 'Tie')
 }
 
+const renderResetBtn = () => {
+    hitBtn.style.display = 'none'
+    standBtn.style.display = 'none'
+    resetBtn.style.display = 'block'
+}
+
+const renderHitStandBtn = () => {
+    dealBtn.style.display = 'none'
+    hitBtn.style.display = 'block'
+    standBtn.style.display = 'block'
+}
+
 const showModal = () => {
     message.style = 'display: block;'
+    renderResetBtn()
 }
 
 const startGame = () => {
@@ -251,9 +265,10 @@ const resetGame = () => {
     playerHand.innerHTML = null
     dealerHand.innerHTML = null
 
-    dealBtn.disabled = false
-    hitBtn.disabled = false
-    standBtn.disabled = false
+    dealBtn.style.display = 'initial'
+    hitBtn.style.display = 'none'
+    standBtn.style.display = 'none'
+    resetBtn.style.display = 'none'
 }
 
 dealBtn.addEventListener('click', () => {
@@ -261,13 +276,13 @@ dealBtn.addEventListener('click', () => {
     dealCard(dealerCards, dealerHand)
     dealCard(playerCards, playerHand)
     dealCard(dealerCards, dealerHand)
+    renderHitStandBtn()
     playerHandValue = getPoints(playerCards)
     dealerHandValue = getPoints(dealerCards)
     checkPoints(playerHandValue, playerCards)
     playerHandValue = getPoints(playerCards)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
     checkResult(gameStatus)
-    dealBtn.disabled = true
 })
 
 hitBtn.addEventListener('click', () => {
@@ -280,7 +295,6 @@ hitBtn.addEventListener('click', () => {
 })
 
 standBtn.addEventListener('click', () => {
-    hitBtn.disabled = true
     revealHiddenCard()
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
     checkDealerUnder16()
@@ -290,12 +304,12 @@ standBtn.addEventListener('click', () => {
         compareHands(playerHandValue, dealerHandValue)
         checkResult(gameStatus)
     }
-    standBtn.disable = true
 })
+
+resetBtn.addEventListener('click', () => resetGame())
 
 xBtn.addEventListener('click', () => {
     message.style.display = 'none'
-    resetGame()
 })
 
-startGame()
+window.addEventListener('DOMContentLoaded', startGame())

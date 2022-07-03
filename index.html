@@ -8,35 +8,38 @@
         <link rel="stylesheet" href="./scripts/style.css" />
     </head>
     <body>
-        <div class="message-box" id="messages">
-            <div class="message-content">
-                <span class="close">&times;</span>
-                <p class="message-text">da message...</p>
-            </div>
-        </div>
-        <div class="table">
-            <div class="player">
-                <label class="player-name"
-                    >Dealer:
-                    <span id="dealer-points" class="points"></span>
-                </label>
-                <div id="dealer-hand" class="hand">
-                    <!-- Dealer Hand -->
+        <div class="container">
+            <div class="message-box" id="messages">
+                <div class="message-content">
+                    <span class="close">&times;</span>
+                    <p class="message-text">da message...</p>
                 </div>
             </div>
-            <div class="player">
-                <label class="player-name"
-                    >Player:
-                    <span id="player-points" class="points"></span>
-                </label>
-                <div id="player-hand" class="hand">
-                    <!-- Player Hand -->
+            <div class="table">
+                <div class="player">
+                    <label class="player-name"
+                        >Dealer:
+                        <span id="dealer-points" class="points"></span>
+                    </label>
+                    <div id="dealer-hand" class="hand">
+                        <!-- Dealer Hand -->
+                    </div>
                 </div>
-            </div>
-            <div class="buttons">
-                <button id="deal-button" type="button">Deal</button>
-                <button id="hit-button" type="button">Hit</button>
-                <button id="stand-button" type="button">Stand</button>
+                <div class="player">
+                    <label class="player-name"
+                        >Player:
+                        <span id="player-points" class="points"></span>
+                    </label>
+                    <div id="player-hand" class="hand">
+                        <!-- Player Hand -->
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button id="deal-button" type="button">Deal</button>
+                    <button id="hit-button" type="button">Hit</button>
+                    <button id="stand-button" type="button">Stand</button>
+                    <button id="reset-button" type="button">Reset</button>
+                </div>
             </div>
         </div>
     </body>
