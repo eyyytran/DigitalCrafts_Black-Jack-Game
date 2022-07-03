@@ -1,3 +1,12 @@
+:root {
+    --jet: #323232;
+    --white: #ffffff;
+    --fire-opal: #ef5941;
+    --green: #1f9b69;
+    --blue: #2b8dd0;
+    --poker-green: #35654d;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -17,6 +26,7 @@ body {
     height: 100vh;
     width: 100vw;
     margin: 0px;
+    background: var(--jet);
 }
 
 .message-box {
@@ -35,7 +45,7 @@ body {
 }
 
 .message-content {
-    background: #fefefe;
+    background: var(--white);
     margin: 5% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -58,9 +68,9 @@ body {
 .table {
     width: 900px;
     max-width: calc(100% - 20px);
-    border: 8px solid rgb(10, 43, 2);
+    border: 8px solid var(--white);
     border-radius: 20px;
-    background: rgb(22, 77, 8);
+    background: var(--poker-green);
     margin: 0 auto;
     color: white;
     padding: 30px;
@@ -103,8 +113,12 @@ button {
     border: 0;
     padding: 10px 16px;
     border-radius: 10px;
-    color: rgb(189, 229, 255);
-    background: rgb(0, 98, 163);
+    color: var(--white);
+}
+
+button:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 #reset-button,
@@ -113,35 +127,18 @@ button {
     display: none;
 }
 
+#hit-button,
+#stand-button {
+    background: var(--blue);
+}
+
 #deal-button {
     display: initial;
+    background: var(--green);
 }
 
-button:hover {
-    cursor: pointer;
-    background: rgb(35, 133, 199);
-    box-shadow: 0px 0px 10px 5px rgba(35, 133, 199, 0.55);
-}
-
-button[disabled] {
-    color: rgb(160, 160, 160);
-    background: rgb(71, 71, 71);
-}
-
-button[disabled]:hover {
-    cursor: not-allowed;
-    background: rgb(71, 71, 71);
-    box-shadow: none;
-}
-
-button[type='reset'] {
-    color: rgb(255, 184, 184);
-    background: rgb(133, 8, 8);
-}
-
-button[type='reset']:hover {
-    background: rgb(150, 7, 7);
-    box-shadow: 0px 0px 10px 5px rgba(150, 7, 7, 0.63);
+#reset-button {
+    background: var(--fire-opal);
 }
 
 @media screen and (max-width: 400px) {
