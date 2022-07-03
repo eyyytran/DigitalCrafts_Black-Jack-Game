@@ -14,35 +14,34 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    min-width: 100vw;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
 }
 
 .message-box {
     display: none;
     position: fixed;
     z-index: 1;
-    left: 0;
     top: 0;
-    width: 900px;
-    max-width: calc(100% - 20px);
+    width: 100vw;
     margin: 0 auto 10px;
     height: 100%;
     overflow: auto;
     font-size: 18px;
     color: rgb(22, 77, 8);
-    border: 5px solid red;
     background: rgb(0, 0, 0);
     background: rgba(0, 0, 0, 0.4);
 }
 
 .message-content {
     background: #fefefe;
-    margin: 15% auto;
+    margin: 30% auto;
     padding: 20px;
     border: 1px solid #888;
-    border-radius: 5px;
+    border-radius: 10px;
     width: 80%;
+    text-align: center;
 }
 
 .close {
@@ -143,4 +142,30 @@ button[type='reset'] {
 button[type='reset']:hover {
     background: rgb(150, 7, 7);
     box-shadow: 0px 0px 10px 5px rgba(150, 7, 7, 0.63);
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        justify-content: flex-start;
+    }
+
+    .table {
+        height: 100%;
+        max-height: calc(100%-20px);
+        width: 100%;
+        max-width: 100%;
+        border: none;
+        border-radius: 0px;
+        margin: 0px;
+    }
+
+    .message-box {
+        width: 100vw;
+        max-width: 100%;
+        height: 100vh;
+    }
+
+    .message-content {
+        height: 60%;
+    }
 }
