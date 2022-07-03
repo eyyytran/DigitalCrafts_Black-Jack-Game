@@ -18,6 +18,9 @@ let playerHandValue = 0
 let dealerHandValue = 0
 let deck = []
 
+deck = makeDeck()
+shuffle(deck)
+
 class Card {
     constructor(name) {
         this.name = name
@@ -285,6 +288,3 @@ xBtn.addEventListener('click', () => {
 
 // const setPlayerPoints = points => (playerPoints.innerHTML = points)
 // const setDealerPoints = points => (playerPoints.innerHTML = points)
-
-deck = makeDeck()
-shuffle(deck)
