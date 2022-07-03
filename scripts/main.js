@@ -14,6 +14,7 @@ const printDealerPoints = document.createElement('div')
 let gameStatus = 'init'
 let playerCards = []
 let dealerCards = []
+let hiddenCard = null
 let playerHandValue = 0
 let dealerHandValue = 0
 let deck = []
@@ -119,19 +120,24 @@ const dealCard = (hand, windowHand) => {
     hand.push(currentCard)
 
     const makeCard = document.createElement('img')
-    if (dealerCards.length === 2) {
-        //make the hidden card//
-        makeCard.src = './images/back_of_card.png'
-    } else {
-        makeCard.src = currentCard.getImage()
-    }
+    if (hand === dealerCards) {
+        if (dealerCards.length === 2) {
+            //make the hidden card//
+            makeCard.src = './images/back_of_card.png'
+            hiddenCard = currentCard
+        } else makeCard.src = currentCard.getImage()
+    } else makeCard.src = currentCard.getImage()
     windowHand.appendChild(makeCard)
 }
 
-const makeHiddenCard = () => {}
+const revealHiddenCard = () => {
+    const hiddenCardImage = document.querySelector('#dealer-hand :nth-child(2)')
+    if ((hiddenCardImage.scr = './image/back_of_card.png')) {
+        hiddenCardImage.src = hiddenCard.getImage()
+    }
+}
 
 const getPoints = hand => {
-    console.log(hand)
     let points = 0
     for (let card = 0; card < hand.length; card++) {
         points = points + hand[card].value
@@ -190,6 +196,7 @@ const checkResult = gameStatus => {
         case 'cont':
             break
         case 'Player Win':
+            revealHiddenCard()
             resultMessage.innerHTML = 'Player Won!'
             showModal()
             break
@@ -198,6 +205,7 @@ const checkResult = gameStatus => {
             showModal()
             break
         case 'Player Busted':
+            revealHiddenCard()
             resultMessage.innerHTML = 'Player Busted!'
             showModal()
             break
@@ -234,6 +242,7 @@ const resetGame = () => {
     gameStatus = 'init'
     playerCards = []
     dealerCards = []
+    hiddenCard = null
     playerHandValue = 0
     dealerHandValue = 0
 
@@ -257,7 +266,6 @@ dealBtn.addEventListener('click', () => {
     checkPoints(playerHandValue, playerCards)
     playerHandValue = getPoints(playerCards)
     renderPoints(playerHandValue, playerPoints, printPlayerPoints)
-    renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
     checkResult(gameStatus)
     dealBtn.disabled = true
 })
@@ -273,6 +281,8 @@ hitBtn.addEventListener('click', () => {
 
 standBtn.addEventListener('click', () => {
     hitBtn.disabled = true
+    revealHiddenCard()
+    renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
     checkDealerUnder16()
     renderPoints(dealerHandValue, dealerPoints, printDealerPoints)
     checkResult(gameStatus)
