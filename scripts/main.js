@@ -18,9 +18,6 @@ let playerHandValue = 0
 let dealerHandValue = 0
 let deck = []
 
-deck = makeDeck()
-shuffle(deck)
-
 class Card {
     constructor(name) {
         this.name = name
@@ -221,6 +218,10 @@ const showModal = () => {
     message.style = 'display: block;'
 }
 
+const startGame = () => {
+    shuffle((deck = makeDeck()))
+}
+
 const resetGame = () => {
     deck = makeDeck()
     shuffle(deck)
@@ -286,5 +287,8 @@ xBtn.addEventListener('click', () => {
     resetGame()
 })
 
+startGame()
 // const setPlayerPoints = points => (playerPoints.innerHTML = points)
 // const setDealerPoints = points => (playerPoints.innerHTML = points)
+// deck = makeDeck()
+// shuffle(deck)
